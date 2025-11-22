@@ -1,0 +1,58 @@
+name: medicinereminder
+description: "A new Flutter project."
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.7.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+  animated_widgets: ^1.1.0
+  intl: ^0.20.2
+  sqflite: ^2.4.2
+  auto_size_text: ^3.0.0
+  path: ^1.9.1
+  flutter_local_notifications: ^19.4.2
+  timezone: ^0.10.1
+  overlay_adaptive_progress_hub: ^0.0.2
+  fluttertoast: ^9.0.0
+  firebase_core: ^4.1.1
+  firebase_auth: ^6.1.0
+  firebase_database: ^12.1.0
+  firebase_messaging: ^16.0.2
+  shared_preferences: ^2.5.3
+  permission_handler: ^11.3.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^5.0.0
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+
+
+
+  fonts:
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins-Regular.ttf
+        - asset: assets/fonts/Poppins-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Poppins-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Poppins-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Poppins-Medium.ttf
+          weight: 500
