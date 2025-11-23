@@ -7,12 +7,15 @@ import 'package:medicinereminder/Screens/LoginScreens/signup.dart';
 import 'package:medicinereminder/Screens/add_new_medicine/add_new_medicine.dart';
 import 'package:medicinereminder/Screens/home/home.dart';
 import 'package:medicinereminder/Screens/home/refresh_screen.dart';
-import 'package:medicinereminder/Screens/splash_Screen.dart';
+import 'package:medicinereminder/Screens/welcome/splash_Screen.dart';
 import 'package:medicinereminder/Screens/welcome/welcome.dart';
-import 'package:medicinereminder/logout_Screen/logout_Screen.dart';
+import 'package:medicinereminder/Screens/Logout_Screen/logout_Screen.dart';
 import 'package:medicinereminder/notifications/notification_permission.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
+
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
 
 void onDidReceiveNotificationResponse(NotificationResponse notificationResponse) async {
   final String? payload = notificationResponse.payload;
@@ -26,7 +29,6 @@ Future<void> main() async {
 
   tz.initializeTimeZones();
   tz.setLocalLocation(tz.getLocation('Asia/Karachi'));
-
   await Firebase.initializeApp();
 
   const AndroidInitializationSettings initializationSettingsAndroid =

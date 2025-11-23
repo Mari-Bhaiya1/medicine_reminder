@@ -20,20 +20,16 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> _navigateToNextScreen() async {
-    // Wait for a few seconds to show the splash screen
     await Future.delayed(const Duration(seconds: 3));
 
-    if (!mounted) return; // Ensure the widget is still in the tree
+    if (!mounted) return;
 
-    // Check login status
     final prefs = await SharedPreferences.getInstance();
     final isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
 
     if (isLoggedIn) {
-      // If logged in, go to the HomeScreen
       Navigator.of(context).pushReplacementNamed(HomeScreen.id);
     } else {
-      // If not logged in, go to the WelcomeScreen
       Navigator.of(context).pushReplacementNamed(WelcomeScreen.id);
     }
   }
@@ -47,7 +43,7 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Hero(
-              tag: 'logo', // Use the same hero tag as your login/logout screens
+              tag: 'logo',
               child: SizedBox(
                 height: 200.0,
                 child: Image.asset('assets/images/welcome_image.png'),

@@ -3,13 +3,15 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:medicinereminder/database/pill_database.dart';
 import 'package:medicinereminder/models/pill_type.dart';
 import 'package:medicinereminder/notifications/notifications.dart';
-import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 
 class Respository {
   final PillDatabase _pillDatabase = PillDatabase();
   static Database? _database;
   final FirebaseDatabase _realtimeDatabase = FirebaseDatabase.instance;
+  final Notifications _notifications = Notifications();
 
   Future<Database> get database async {
     if (_database != null) return _database!;
@@ -51,7 +53,7 @@ class Respository {
     Database? db = await database;
     try {
       final result = await db!.delete('Pills', where: 'id=?', whereArgs: [id]);
-      await Notifications().cancelNotification(notifyId);
+      await _notifications.cancelNotification(notifyId);
       return result;
     } catch (e) {
       print('Data deletion error: $e');
@@ -65,7 +67,7 @@ class Respository {
       final pills = await db!.query('Pills', where: 'groupId = ?', whereArgs: [groupId]);
       for (var pill in pills) {
         final p = Pill.fromMap(pill);
-        await Notifications().cancelNotification(p.notifyId);
+        await _notifications.cancelNotification(p.notifyId);
       }
       await db.delete('Pills', where: 'groupId = ?', whereArgs: [groupId]);
     } catch (e) {
@@ -110,6 +112,10 @@ class Respository {
     if (user == null) return;
 
     try {
+      // Cancel all existing notifications
+      await _notifications.cancelAllNotifications();
+
+      // Clear local data first
       await clearLocalData();
 
       final snapshot = await _realtimeDatabase.ref('users/${user.uid}/pills').get();
@@ -120,9 +126,29 @@ class Respository {
       }
 
       final data = snapshot.value as Map<dynamic, dynamic>;
+
+      tz.initializeTimeZones();
+      tz.setLocalLocation(tz.getLocation('Asia/Karachi'));
+
       for (var pillData in data.values) {
         final pillMap = Map<String, dynamic>.from(pillData as Map);
         await insertData('Pills', pillMap);
+        final pill = Pill.fromMap(pillMap);
+        
+        String description;
+        if (pill.type == 'pills') {
+          description = "${pill.amount} ${pill.medicineForm}";
+        } else {
+          description = "${pill.amount} ${pill.type} of ${pill.medicineForm}";
+        }
+
+        // Re-schedule notification
+        await _notifications.showNotification(
+          pill.name,
+          description,
+          pill.time,
+          pill.notifyId,
+        );
       }
       print("✅ Data successfully synced from Realtime Database");
     } catch (e) {

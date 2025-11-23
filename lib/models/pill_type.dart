@@ -7,7 +7,7 @@ class Pill {
   final String medicineForm;
   final int time;
   final int notifyId;
-  final int groupId; // New field to group reminders
+  final int groupId;
 
   Pill({
     required this.id,
@@ -45,7 +45,7 @@ class Pill {
       medicineForm: pillMap['medicineForm'] ?? '',
       time: pillMap['time'] ?? 0,
       notifyId: pillMap['notifyId'] ?? 0,
-      groupId: pillMap['groupId'] ?? 0, // Default to 0 if not found
+      groupId: pillMap['groupId'] ?? 0,
     );
   }
 

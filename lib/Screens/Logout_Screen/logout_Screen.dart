@@ -6,7 +6,7 @@ import 'package:medicinereminder/database/respository.dart';
 import 'package:medicinereminder/notifications/notification_permission.dart';
 import 'package:overlay_adaptive_progress_hub/overlay_adaptive_progress_hub.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../Screens/LoginScreens/round_button.dart';
+import '../LoginScreens/round_button.dart';
 
 class LogoutScreen extends StatefulWidget {
   static String id = 'Logout_Screen';

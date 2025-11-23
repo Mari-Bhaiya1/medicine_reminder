@@ -39,4 +39,8 @@ class Notifications {
   Future cancelNotification(int id) async {
     await flutterLocalNotificationsPlugin.cancel(id);
   }
+
+  Future<void> cancelAllNotifications() async {
+    await flutterLocalNotificationsPlugin.cancelAll();
+  }
 }

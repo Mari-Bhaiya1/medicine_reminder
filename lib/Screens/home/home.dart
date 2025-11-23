@@ -4,9 +4,10 @@ import 'package:medicinereminder/Screens/home/calendar.dart';
 import 'package:medicinereminder/Screens/home/medicine_list.dart';
 import 'package:medicinereminder/Screens/home/refresh_screen.dart';
 import 'package:medicinereminder/database/respository.dart';
-import 'package:medicinereminder/logout_Screen/logout_Screen.dart';
+import 'package:medicinereminder/Screens/Logout_Screen/logout_Screen.dart';
 import 'package:medicinereminder/models/calendardaymodel.dart';
 import 'package:medicinereminder/models/pill_type.dart';
+import 'package:medicinereminder/notifications/notifications.dart';
 
 class HomeScreen extends StatefulWidget {
   static String id = 'home_screen';
@@ -24,6 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Pill> alllistofPills = [];
   final Respository _respository = Respository();
   List<Pill> dailyPills = [];
+  final Notifications _notifications = Notifications();
 
   @override
   void initState() {
@@ -37,11 +39,22 @@ class _HomeScreenState extends State<HomeScreen> {
     var fetchedPills = await _respository.getAlldata("Pills");
     alllistofPills =
         fetchedPills.map((pillMap) => Pill.fromMap(pillMap)).toList();
+    await scheduleNotificationsForPills();
 
     if (mounted) {
       setState(() {
         chooseDay(_daylist[_lastchooseday]);
       });
+    }
+  }
+
+  Future<void> scheduleNotificationsForPills() async {
+    for (var pill in alllistofPills) {
+      await _notifications.showNotification(
+          pill.name,
+          'It is time to take your medicine!',
+          pill.time,
+          pill.notifyId);
     }
   }
 
@@ -96,7 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     TextButton(
                       onPressed: () {
-                        setData();
+                        _respository.syncFromFirebase().then((_) => setData());
                         Navigator.pushNamed(context, RefreshScreen.id);
                       },
                       child: const Icon(Icons.refresh, size: 42.0),
