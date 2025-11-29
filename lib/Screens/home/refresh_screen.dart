@@ -73,6 +73,9 @@ class _RefreshScreenState extends State<RefreshScreen> {
                   try {
                     await _respository.syncFromFirebase();
                     Fluttertoast.showToast(msg: "Data downloaded successfully!");
+                    if (mounted) {
+                      Navigator.pop(context, true);
+                    }
                   } catch (e) {
                     Fluttertoast.showToast(msg: "Error: $e");
                   } finally {

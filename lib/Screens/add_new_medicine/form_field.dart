@@ -45,10 +45,33 @@ class FormFieldforaddingmedicine extends StatelessWidget {
                       vertical: 20.0,
                     ),
                     labelText: "Pill Name",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: BorderSide(width: 0.5, color: Colors.grey),
+
+                    labelStyle: TextStyle(
+                      color: Colors.grey[600],
                     ),
+
+                    floatingLabelStyle: TextStyle(
+                      color: Color.fromRGBO(7, 190, 200, 1),
+                      fontWeight: FontWeight.w600,
+                    ),
+
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                      borderSide: BorderSide(
+                        width: 0.5,
+                        color: Colors.grey.shade600,
+                      ),
+                    ),
+
+                    focusedBorder:
+                    OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                      borderSide: BorderSide(
+                        width: 1.5,
+                        color: Color.fromRGBO(7, 190, 200, 1),
+                      ),
+                    ),
+
                   ),
                   onSubmitted: (val) => focus.nextFocus(),
                 ),
@@ -75,14 +98,37 @@ class FormFieldforaddingmedicine extends StatelessWidget {
                             vertical: 20.0,
                           ),
                           labelText: "Pill Amount",
-                          border: OutlineInputBorder(
+
+                          labelStyle: TextStyle(
+                            color: Colors.grey[600],
+                          ),
+
+                          floatingLabelStyle: TextStyle(
+                            color: Color.fromRGBO(7, 190, 200, 1),
+                            fontWeight: FontWeight.w600,
+                          ),
+
+                          enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
                             borderSide: BorderSide(
                               width: 0.5,
-                              color: Colors.grey,
+                              color: Colors.grey.shade600,
                             ),
                           ),
+
+                          focusedBorder:
+                          OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                            borderSide: BorderSide(
+                              width: 1.5,
+                              color: Color.fromRGBO(7, 190, 200, 1),
+                            ),
+                          ),
+
                         ),
+
+
+
                         onSubmitted: (val) => focus.nextFocus(),
                       ),
                     ),
@@ -101,14 +147,34 @@ class FormFieldforaddingmedicine extends StatelessWidget {
                             horizontal: 15.0,
                             vertical: 20.0,
                           ),
-                          labelText: "Input Type",
-                          border: OutlineInputBorder(
+                          labelText: "Type",
+
+                          labelStyle: TextStyle(
+                            color: Colors.grey[600],
+                          ),
+
+                          floatingLabelStyle: TextStyle(
+                            color: Color.fromRGBO(7, 190, 200, 1),
+                            fontWeight: FontWeight.w600,
+                          ),
+
+                          enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
                             borderSide: BorderSide(
                               width: 0.5,
-                              color: Colors.grey,
+                              color: Colors.grey.shade600,
                             ),
                           ),
+
+                          focusedBorder:
+                          OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                            borderSide: BorderSide(
+                              width: 1.5,
+                              color: Color.fromRGBO(7, 190, 200, 1),
+                            ),
+                          ),
+
                         ),
                         items:
                             weightValues.map((weight) {

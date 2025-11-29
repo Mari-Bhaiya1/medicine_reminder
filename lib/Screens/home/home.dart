@@ -96,7 +96,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       onPressed: () {
                         Navigator.pushNamed(context, LogoutScreen.id);
                       },
-                      child: const Icon(Icons.exit_to_app, size: 42.0),
+                      child: const Icon(Icons.exit_to_app, size: 42.0,color: Colors.redAccent,),
                     ),
                     Text(
                       "Journal",
@@ -108,11 +108,16 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                     ),
                     TextButton(
-                      onPressed: () {
-                        _respository.syncFromFirebase().then((_) => setData());
-                        Navigator.pushNamed(context, RefreshScreen.id);
+                      onPressed: () async {
+                        final result = await Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const RefreshScreen()),
+                        );
+                        if (result != null && result as bool) {
+                          await setData();
+                        }
                       },
-                      child: const Icon(Icons.refresh, size: 42.0),
+                      child: Icon(Icons.refresh, size: 42.0,color: Theme.of(context).primaryColor,),
                     ),
                   ],
                 ),

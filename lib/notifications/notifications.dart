@@ -25,6 +25,10 @@ class Notifications {
     final tz.TZDateTime scheduledDate =
         tz.TZDateTime.fromMillisecondsSinceEpoch(tz.local, time);
 
+    if (scheduledDate.isBefore(tz.TZDateTime.now(tz.local))) {
+      return;
+    }
+
     await flutterLocalNotificationsPlugin.zonedSchedule(
       id,
       title,
